@@ -68,7 +68,7 @@ Wtyczka umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 %build
 rm -f missing
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure
