@@ -17,7 +17,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libogg-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:1.4d
+BuildRequires:	libtool >= 1:1.4.1
 %{!?_without_xmms:BuildRequires:	xmms-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
