@@ -13,6 +13,7 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
 # Source0-md5:	2bfc127cdda02834d0491ab531a20960
 Patch0:		%{name}-without_xmms.patch
+Patch1:		%{name}-read_only_relocs.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -71,6 +72,7 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 %prep
 %setup -q
 %{!?with_xmms:%patch0 -p1}
+%patch1 -p1
 
 %build
 %{__libtoolize}
