@@ -17,7 +17,7 @@ URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_xmms:BuildRequires:	id3lib-devel >= 3.8.0}
-BuildRequires:	libogg-devel >= 1:1.0
+BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.4d-3
 %{?with_xmms:BuildRequires:	rpmbuild(macros) >= 1.125}
