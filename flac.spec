@@ -84,7 +84,13 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure
+
+# during make static libraries are linked into dynamic libraries
+# objects in static libraries are compiled without -fPIC and such
+# objects cannot be linked into dynamic libraries on some platforms
+# e.g. AMD64. Workaround - -fPIC passed to every compilation
+%configure \
+	CFLAGS="-fPIC %{rpmcflags}"
 %{__make}
 
 %install
