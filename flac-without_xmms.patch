@@ -1,0 +1,35 @@
+diff -Nru flac-1.0.4.orig/configure.in flac-1.0.4/configure.in
+--- flac-1.0.4.orig/configure.in	Fri Sep 20 00:39:39 2002
++++ flac-1.0.4/configure.in	Sun Jan 19 19:33:13 2003
+@@ -223,9 +223,6 @@
+ AC_DEFINE(FLAC__HAS_OGG)
+ fi
+ 
+-AM_PATH_XMMS(0.9.5.1, , AC_MSG_WARN([*** XMMS >= 0.9.5.1 not installed - xmms support will not be built]))
+-AM_CONDITIONAL(FLaC__HAS_XMMS, test x$XMMS_INPUT_PLUGIN_DIR != x)
+-
+ SHARE_LIBS='$(top_builddir)/src/share/libutf8.a $(top_builddir)/src/share/libgetopt.a'
+ 
+ dnl check for i18n(internationalization); these are from libiconv/gettext
+diff -Nru flac-1.0.4.orig/src/Makefile.am flac-1.0.4/src/Makefile.am
+--- flac-1.0.4.orig/src/Makefile.am	Fri Aug 23 06:58:54 2002
++++ flac-1.0.4/src/Makefile.am	Sun Jan 19 19:36:24 2003
+@@ -15,10 +15,6 @@
+ #  along with this program; if not, write to the Free Software
+ #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ 
+-if FLaC__HAS_XMMS
+-XMMS_DIRS = plugin_xmms
+-endif
+-
+ if FLaC__HAS_OGG
+ OGGFLAC_DIRS = libOggFLAC libOggFLAC++
+ OGGFLAC_TEST_DIRS = test_libOggFLAC test_libOggFLAC++
+@@ -33,7 +29,6 @@
+ 	metaflac \
+ 	monkeys_audio_utilities \
+ 	plugin_common \
+-	$(XMMS_DIRS) \
+ 	plugin_winamp2 \
+ 	plugin_winamp3 \
+ 	test_libFLAC \
