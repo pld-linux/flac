@@ -2,7 +2,7 @@
 #
 # Conditional build:
 #  _without xmms
-Summary: 	Free Lossless Audio Codec
+Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
 Version:	1.1.0
@@ -10,7 +10,7 @@ Release:	3
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5: 19b456a27b5fcf502c76cc33f33e1490
+# Source0-md5:	19b456a27b5fcf502c76cc33f33e1490
 Patch0:		%{name}-lt.patch
 Patch1:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
@@ -55,7 +55,7 @@ The package contains flac static libraries.
 Ten pakiet zawiera biblioteki statyczne flac.
 
 %package -n xmms-input-flac
-Summary: 	Free Lossless Audio Codec - XMMS plugin
+Summary:	Free Lossless Audio Codec - XMMS plugin
 Summary(pl):	Wtyczka FLAC dla XMMS
 License:	GPL/LGPL
 Group:		Libraries
