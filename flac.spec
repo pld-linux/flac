@@ -17,6 +17,7 @@ Patch1:		%{name}-read_only_relocs.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gettext-devel
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.4d-3
