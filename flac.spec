@@ -1,8 +1,8 @@
 Summary: 	Free Lossless Audio Codec
-Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio.
+Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
 Version:	1.0.3
-Release:	1
+Release:	2
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/flac/flac-1.0.3.tar.gz
@@ -13,6 +13,7 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	xmms-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
 %define		_xmms_input_path	%(xmms-config --input-plugin-dir)
 
 %description
@@ -23,8 +24,8 @@ FLAC jest OpenSource'owym bezstratnym kodekiem audio rozwijanym
 przez Josh'a Coalsona.
 
 %package devel
-Summary:	FLAC - development files.
-Summary(pl):	FLAC - bilbioteki rozwojowe.
+Summary:	FLAC - development files
+Summary(pl):	FLAC - bilbioteki rozwojowe
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -35,8 +36,8 @@ Package contains a development header files and libraries.
 Paczka zawiera pliki nag³ówkowe oraz biblioteki.
 
 %package static
-Summary:	FLAC - static libraries.
-Summary(pl):	FLAC - biblioteki statyczne.
+Summary:	FLAC - static libraries
+Summary(pl):	FLAC - biblioteki statyczne
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
