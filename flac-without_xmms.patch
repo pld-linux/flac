@@ -1,19 +1,19 @@
-diff -Nru flac-1.0.4.orig/configure.in flac-1.0.4/configure.in
---- flac-1.0.4.orig/configure.in	Fri Sep 20 00:39:39 2002
-+++ flac-1.0.4/configure.in	Sun Jan 19 19:33:13 2003
-@@ -223,9 +223,6 @@
+diff -Nru flac-1.1.0.orig/configure.in flac-1.1.0/configure.in
+--- flac-1.1.0.orig/configure.in	Wed Jan 15 21:56:07 2003
++++ flac-1.1.0/configure.in	Wed Jan 29 18:52:47 2003
+@@ -248,9 +248,6 @@
  AC_DEFINE(FLAC__HAS_OGG)
  fi
  
 -AM_PATH_XMMS(0.9.5.1, , AC_MSG_WARN([*** XMMS >= 0.9.5.1 not installed - xmms support will not be built]))
 -AM_CONDITIONAL(FLaC__HAS_XMMS, test x$XMMS_INPUT_PLUGIN_DIR != x)
 -
- SHARE_LIBS='$(top_builddir)/src/share/libutf8.a $(top_builddir)/src/share/libgetopt.a'
- 
  dnl check for i18n(internationalization); these are from libiconv/gettext
-diff -Nru flac-1.0.4.orig/src/Makefile.am flac-1.0.4/src/Makefile.am
---- flac-1.0.4.orig/src/Makefile.am	Fri Aug 23 06:58:54 2002
-+++ flac-1.0.4/src/Makefile.am	Sun Jan 19 19:36:24 2003
+ AM_ICONV
+ AM_LANGINFO_CODESET
+diff -Nru flac-1.1.0.orig/src/Makefile.am flac-1.1.0/src/Makefile.am
+--- flac-1.1.0.orig/src/Makefile.am	Sat Jan 25 19:14:45 2003
++++ flac-1.1.0/src/Makefile.am	Wed Jan 29 18:53:35 2003
 @@ -15,10 +15,6 @@
  #  along with this program; if not, write to the Free Software
  #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -32,4 +32,4 @@ diff -Nru flac-1.0.4.orig/src/Makefile.am flac-1.0.4/src/Makefile.am
 -	$(XMMS_DIRS) \
  	plugin_winamp2 \
  	plugin_winamp3 \
- 	test_libFLAC \
+ 	test_grabbag \
