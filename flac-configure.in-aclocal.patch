@@ -1,0 +1,11 @@
+--- configure.in.orig	Tue Jul  2 22:23:55 2002
++++ configure.in	Tue Sep  3 10:20:30 2002
+@@ -93,7 +93,7 @@
+ AC_DEFINE(FLAC__USE_3DNOW)
+ fi
+ 
+-AM_PATH_OGG(have_ogg=yes, AC_MSG_WARN([*** Ogg development enviroment not installed - Ogg support will not be built]))
++XIPH_PATH_OGG(have_ogg=yes, AC_MSG_WARN([*** Ogg development enviroment not installed - Ogg support will not be built]))
+ AM_CONDITIONAL(FLaC__HAS_OGG, [test x$have_ogg = xyes])
+ if test x$have_ogg = xyes ; then
+ AC_DEFINE(FLAC__HAS_OGG)
