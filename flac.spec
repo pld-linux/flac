@@ -1,5 +1,5 @@
 Summary: 	Free Lossless Audio Codec
-Summary(pl):	Free Lossless Audio Codec - Darmowy Ma³ostratny Kodek Audio.
+Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio.
 Name:		flac
 Version:	1.0.3
 Release:	1
@@ -19,7 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
 
 %description -l pl
-FLAC jest OpenSourcoweo± ma³ostratnym kodekiem audio rozwijanym
+FLAC jest OpenSourcowym bezstratnym kodekiem audio rozwijanym
 przez Josh'a Coalsona.
 
 %package devel
