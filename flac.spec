@@ -4,7 +4,7 @@
 %bcond_without	xmms	# don't build XMMS plugin
 #
 Summary:	Free Lossless Audio Codec
-Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
+Summary(pl):	Free Lossless Audio Codec - Wolny Bezstratny Kodek Audio
 Name:		flac
 Version:	1.1.1
 Release:	1
