@@ -2,7 +2,7 @@ Summary: 	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
 Version:	1.0.3
-Release:	2
+Release:	3
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/flac/flac-1.0.3.tar.gz
@@ -20,8 +20,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
 
 %description -l pl
-FLAC jest OpenSource'owym bezstratnym kodekiem audio rozwijanym
-przez Josh'a Coalsona.
+FLAC jest bezstratnym kodekiem audio z otwartymi ¼ród³ami, rozwijanym
+przez Josha Coalsona.
 
 %package devel
 Summary:	FLAC - development files
@@ -30,10 +30,10 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-Package contains a development header files and libraries.
+Package contains the development header files for flac.
 
 %description devel -l pl
-Paczka zawiera pliki nag³ówkowe oraz biblioteki.
+Paczka zawiera pliki nag³ówkowe flac.
 
 %package static
 Summary:	FLAC - static libraries
@@ -42,13 +42,14 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-Package contains a static libraries.
+Package contains flac static libraries.
 
 %description static -l pl
-Paczka zawiera biblioteki statyczne.
+Paczka zawiera biblioteki statyczne flac.
 
 %package -n xmms-input-flac
-Summary: 	Free Lossless Audio Codec	
+Summary: 	Free Lossless Audio Codec - XMMS plugin
+Summary(pl):	Wtyczka FLAC dla XMMS
 License:	GPL/LGPL
 Group:		Libraries
 Requires:	%{name} = %{version}
@@ -57,8 +58,8 @@ Requires:	xmms
 %description -n xmms-input-flac
 FLAC input plugin for XMMS.
 
-%description -l pl -n xmms-input-flac
-Wtyczka umo¿liwiaj±ca odtwarzanie plikow w formacie FLAC.
+%description -n xmms-input-flac -l pl
+Wtyczka umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
@@ -86,18 +87,18 @@ rm -rf $RPM_BUILD_ROOT
 %postun -p /sbin/ldconfig
 
 %files
-%doc doc/*
 %defattr(644,root,root,755)
-%{_bindir}/*
-%{_libdir}/lib*.so.*.* 
+%doc doc/*
+%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/lib*.so.*.* 
 %{_mandir}/man1/*
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.la
 %{_includedir}/*
-%{_datadir}/aclocal/*
-%{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%{_aclocaldir}/*
 
 %files static
 %defattr(644,root,root,755)
