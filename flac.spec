@@ -1,26 +1,30 @@
-# TODO: split (c++, ogg?)
+# maybe TODO: split (c++, ogg?)
 #
 # Conditional build:
-#  _without xmms
+%bcond_without	xmms	# don't build XMMS plugin
+#
 Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
 Version:	1.1.0
-Release:	3
+Release:	4
 License:	GPL/LGPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
 # Source0-md5:	19b456a27b5fcf502c76cc33f33e1490
 Patch0:		%{name}-lt.patch
-Patch1:		%{name}-without_xmms.patch
+Patch1:		%{name}-am18.patch
+Patch2:		%{name}-link.patch
+Patch3:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libogg-devel
+%{?with_xmms:BuildRequires:	id3lib-devel >= 3.8.0}
+BuildRequires:	libogg-devel >= 1:1.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:1.4d
-%{!?_without_xmms:BuildRequires:	rpmbuild(macros) >= 1.125}
-%{!?_without_xmms:BuildRequires:	xmms-devel}
+BuildRequires:	libtool >= 2:1.4d-3
+%{?with_xmms:BuildRequires:	rpmbuild(macros) >= 1.125}
+%{?with_xmms:BuildRequires:	xmms-devel >= 0.9.5.1}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,10 +41,10 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-The package contains the development header files for flac.
+The package contains the development header files for FLAC libraries.
 
 %description devel -l pl
-Ten pakiet zawiera pliki nag³ówkowe biblioteki flac.
+Ten pakiet zawiera pliki nag³ówkowe bibliotek FLAC.
 
 %package static
 Summary:	FLAC - static libraries
@@ -49,10 +53,10 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-The package contains flac static libraries.
+The package contains FLAC static libraries.
 
 %description static -l pl
-Ten pakiet zawiera biblioteki statyczne flac.
+Ten pakiet zawiera biblioteki statyczne FLAC.
 
 %package -n xmms-input-flac
 Summary:	Free Lossless Audio Codec - XMMS plugin
@@ -71,10 +75,11 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 %prep
 %setup -q
 %patch0 -p1
-%{?_without_xmms:%patch1 -p1}
+%patch1 -p1
+%patch2 -p1
+%{!?with_xmms:%patch3 -p1}
 
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -116,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
 
-%if %{!?_without_xmms:1}0
+%if %{with xmms}
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xmms_input_plugindir}/*.so
