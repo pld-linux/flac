@@ -6,16 +6,13 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
-Version:	1.1.0
-Release:	5
+Version:	1.1.1
+Release:	1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
-# Source0-md5:	19b456a27b5fcf502c76cc33f33e1490
-Patch0:		%{name}-lt.patch
-Patch1:		%{name}-am18.patch
-Patch2:		%{name}-link.patch
-Patch3:		%{name}-without_xmms.patch
+# Source0-md5:	c6ccddccf8ad344065698047c2fc7280
+Patch0:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -38,7 +35,7 @@ przez Josha Coalsona.
 Summary:	FLAC - development files
 Summary(pl):	FLAC - pliki nag³ówkowe
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 The package contains the development header files for FLAC libraries.
@@ -50,7 +47,7 @@ Ten pakiet zawiera pliki nag³ówkowe bibliotek FLAC.
 Summary:	FLAC - static libraries
 Summary(pl):	FLAC - biblioteki statyczne
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 The package contains FLAC static libraries.
@@ -63,7 +60,7 @@ Summary:	Free Lossless Audio Codec - XMMS plugin
 Summary(pl):	Wtyczka FLAC dla XMMS
 License:	GPL/LGPL
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	xmms
 
 %description -n xmms-input-flac
@@ -74,10 +71,7 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%{!?with_xmms:%patch3 -p1}
+%{!?with_xmms:%patch0 -p1}
 
 %build
 %{__libtoolize}
@@ -96,6 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # no makefiles in doc dirs
 rm -f doc/html/{Makefile*,images/Makefile*,ru/Makefile*}
+rm -f $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -126,5 +121,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
 %attr(755,root,root) %{xmms_input_plugindir}/*.so
-%{xmms_input_plugindir}/*.la
 %endif
