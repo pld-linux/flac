@@ -5,7 +5,7 @@
  endif
  endif
 -LOCAL_EXTRA_LDFLAGS = "-Wl,-read_only_relocs,warning"
-+LOCAL_EXTRA_LDFLAGS = "-Wl,warning"
++LOCAL_EXTRA_LDFLAGS = ""
  endif
  endif
  
