@@ -9,7 +9,7 @@ Version:	1.1.0
 Release:	2
 License:	GPL/LGPL
 Group:		Libraries
-Source0:	http://download.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5: 19b456a27b5fcf502c76cc33f33e1490
 Patch0:		%{name}-lt.patch
 Patch1:		%{name}-without_xmms.patch
