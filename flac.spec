@@ -1,12 +1,11 @@
 Summary: 	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
-Version:	1.0.3
-Release:	3
+Version:	1.0.4
+Release:	1
 License:	GPL/LGPL
 Group:		Libraries
-Source0:	http://prdownloads.sourceforge.net/flac/flac-1.0.3.tar.gz
-Patch0:		%{name}-configure.in-aclocal.patch
+Source0:	http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -63,7 +62,6 @@ Wtyczka umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 rm -f missing
