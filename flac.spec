@@ -13,7 +13,7 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	xmms-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-%define		_xmms_path	/usr/X11R6/lib/xmms/
+%define		_xmms_input_path	%(xmms-config --input-plugin-dir)
 
 %description
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
@@ -102,4 +102,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
-%{_xmms_path}/Input
+%{_xmms_input_path}/*
