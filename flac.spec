@@ -10,9 +10,8 @@ Release:	1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://download.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-#Patch0:		%{name}-acfix.patch
-Patch1:		%{name}-lt.patch
-Patch2:		%{name}-without_xmms.patch
+Patch0:		%{name}-lt.patch
+Patch1:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -73,9 +72,8 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-#%%patch0 -p1
-%patch1 -p1
-%{?_without_xmms:%patch2 -p1}
+%patch0 -p1
+%{?_without_xmms:%patch1 -p1}
 
 %build
 rm -f missing
