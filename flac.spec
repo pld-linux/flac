@@ -72,7 +72,7 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 %{?_without_xmms:%patch1 -p1}
 
 %build
