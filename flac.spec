@@ -1,4 +1,7 @@
 # TODO: split (c++, ogg?)
+#
+# Conditional build:
+#  _without xmms
 Summary: 	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
@@ -9,16 +12,19 @@ Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:		%{name}-acfix.patch
 Patch1:		%{name}-lt.patch
+Patch2:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libogg-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.4d
-BuildRequires:	xmms-devel
+%{!?_without_xmms:BuildRequires:	xmms-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%if %{!?_without_xmms:1}0
 %define		_xmms_input_path	%(xmms-config --input-plugin-dir)
+%endif
 
 %description
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
@@ -69,6 +75,7 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%{?_without_xmms:%patch2 -p1}
 
 %build
 rm -f missing
@@ -93,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc/{*.html,images/{*.gif,*.jpg},ru/*.html}
+%doc doc/html/{*.html,images/{*.gif,*.jpg}}
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/lib*.so.*.* 
 %{_mandir}/man1/*
@@ -109,7 +116,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
 
+%if %{!?_without_xmms:1}0
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_xmms_input_path}/*.so
 %{_xmms_input_path}/*.la
+%endif
