@@ -1,0 +1,11 @@
+--- flac-1.0.4/src/libFLAC/ia32/Makefile.am.orig	Sat Jan 26 19:05:12 2002
++++ flac-1.0.4/src/libFLAC/ia32/Makefile.am	Sun Dec 22 02:58:27 2002
+@@ -21,7 +21,7 @@
+ STRIP_FPIC = sh $(top_srcdir)/strip_fPIC.sh
+ 
+ .nasm.lo:
+-	$(LIBTOOL) --mode=compile $(STRIP_FPIC) $(NASM) -f $(OBJ_FORMAT) -d OBJ_FORMAT_$(OBJ_FORMAT) -i$(srcdir)/ $< -o $@
++	$(LIBTOOL) --mode=compile --tag NASM $(STRIP_FPIC) $(NASM) -f $(OBJ_FORMAT) -d OBJ_FORMAT_$(OBJ_FORMAT) -i$(srcdir)/ $< -o $@
+ 
+ noinst_LTLIBRARIES = libFLAC-asm.la
+ libFLAC_asm_la_SOURCES = \

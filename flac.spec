@@ -1,3 +1,4 @@
+# TODO: split (c++, ogg?)
 Summary: 	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
@@ -6,10 +7,14 @@ Release:	1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:		%{name}-acfix.patch
+Patch1:		%{name}-lt.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	libogg-devel
+BuildRequires:	libstdc++-devel
+BuildRequires:	libtool >= 2:1.4d
 BuildRequires:	xmms-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -24,15 +29,15 @@ przez Josha Coalsona.
 
 %package devel
 Summary:	FLAC - development files
-Summary(pl):	FLAC - bilbioteki rozwojowe
+Summary(pl):	FLAC - pliki nag³ówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-Package contains the development header files for flac.
+The package contains the development header files for flac.
 
 %description devel -l pl
-Paczka zawiera pliki nag³ówkowe flac.
+Ten pakiet zawiera pliki nag³ówkowe biblioteki flac.
 
 %package static
 Summary:	FLAC - static libraries
@@ -41,10 +46,10 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
-Package contains flac static libraries.
+The package contains flac static libraries.
 
 %description static -l pl
-Paczka zawiera biblioteki statyczne flac.
+Ten pakiet zawiera biblioteki statyczne flac.
 
 %package -n xmms-input-flac
 Summary: 	Free Lossless Audio Codec - XMMS plugin
@@ -58,10 +63,12 @@ Requires:	xmms
 FLAC input plugin for XMMS.
 
 %description -n xmms-input-flac -l pl
-Wtyczka umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
+Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 rm -f missing
@@ -104,4 +111,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
-%{_xmms_input_path}/*
+%attr(755,root,root) %{_xmms_input_path}/*.so
+%{_xmms_input_path}/*.la
