@@ -6,7 +6,7 @@ Summary: 	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Darmowy Bezstratny Kodek Audio
 Name:		flac
 Version:	1.1.0
-Release:	2
+Release:	3
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -19,12 +19,9 @@ BuildRequires:	automake
 BuildRequires:	libogg-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.4d
+%{!?_without_xmms:BuildRequires:	rpmbuild(macros) >= 1.125}
 %{!?_without_xmms:BuildRequires:	xmms-devel}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%if %{!?_without_xmms:1}0
-%define		_xmms_input_path	%(xmms-config --input-plugin-dir)
-%endif
 
 %description
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
@@ -122,6 +119,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{!?_without_xmms:1}0
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_xmms_input_path}/*.so
-%{_xmms_input_path}/*.la
+%attr(755,root,root) %{xmms_input_plugindir}/*.so
+%{xmms_input_plugindir}/*.la
 %endif
