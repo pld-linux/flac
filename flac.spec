@@ -51,6 +51,7 @@ Summary: 	Free Lossless Audio Codec
 License:	GPL/LGPL
 Group:		Libraries
 Requires:	%{name} = %{version}
+Requires:	xmms
 
 %description -n xmms-input-flac
 FLAC input plugin for XMMS.
@@ -74,10 +75,11 @@ aclocal
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} DESTDIR=${RPM_BUILD_ROOT} install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
