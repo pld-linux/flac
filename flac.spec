@@ -10,7 +10,7 @@ Release:	1
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://download.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Patch0:		%{name}-acfix.patch
+#Patch0:		%{name}-acfix.patch
 Patch1:		%{name}-lt.patch
 Patch2:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
