@@ -19,7 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
 
 %description -l pl
-FLAC jest OpenSourcowym bezstratnym kodekiem audio rozwijanym
+FLAC jest OpenSource'owym bezstratnym kodekiem audio rozwijanym
 przez Josh'a Coalsona.
 
 %package devel
