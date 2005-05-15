@@ -7,7 +7,7 @@ Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Wolnodostêpny bezstratny kodek audio
 Name:		flac
 Version:	1.1.2
-Release:	3
+Release:	4
 License:	GPL/LGPL
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
