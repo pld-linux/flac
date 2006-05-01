@@ -1,7 +1,8 @@
 # maybe TODO: split (c++, ogg?)
 #
 # Conditional build:
-%bcond_without	xmms	# don't build XMMS plugin
+%bcond_without	static_libs	# don't build static library
+%bcond_without	xmms		# don't build XMMS plugin
 #
 Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Wolnodostêpny bezstratny kodek audio
@@ -81,7 +82,8 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure
+%configure \
+	%{!?with_static_libs:--disable-static}
 
 %{__make}
 
@@ -116,9 +118,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %{_aclocaldir}/*
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+%endif
 
 %if %{with xmms}
 %files -n xmms-input-flac
