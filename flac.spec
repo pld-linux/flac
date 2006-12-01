@@ -1,4 +1,4 @@
-# maybe TODO: split (c++, ogg?)
+# TODO: separate c++
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
@@ -7,18 +7,18 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Wolnodostêpny bezstratny kodek audio
 Name:		flac
-Version:	1.1.2
-Release:	4
-License:	GPL/LGPL
+Version:	1.1.3
+Release:	1
+License:	BSD (libFLAC/libFLAC++), GPL (programs and plugins)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
-# Source0-md5:	2bfc127cdda02834d0491ab531a20960
-Patch0:		%{name}-without_xmms.patch
-Patch1:		%{name}-read_only_relocs.patch
-Patch2:		%{name}-plugin_xmms.patch
+# Source0-md5:	b084603948b60ee338e0c29978cc580c
+Patch0:		%{name}-link.patch
+Patch1:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	automake >= 1:1.7
+# for AM_ICONV
 BuildRequires:	gettext-devel
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libstdc++-devel
@@ -37,8 +37,12 @@ przez Josha Coalsona.
 %package devel
 Summary:	FLAC - development files
 Summary(pl):	FLAC - pliki nag³ówkowe
+License:	BSD
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libogg-devel >= 2:1.0
+# for -c++ only
+#Requires:	libstdc++-devel
 
 %description devel
 The package contains the development header files for FLAC libraries.
@@ -49,6 +53,7 @@ Ten pakiet zawiera pliki nag³ówkowe bibliotek FLAC.
 %package static
 Summary:	FLAC - static libraries
 Summary(pl):	FLAC - biblioteki statyczne
+License:	BSD
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -61,7 +66,7 @@ Ten pakiet zawiera biblioteki statyczne FLAC.
 %package -n xmms-input-flac
 Summary:	Free Lossless Audio Codec - XMMS plugin
 Summary(pl):	Wtyczka FLAC dla XMMS
-License:	GPL/LGPL
+License:	GPL v2+
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	xmms
@@ -74,13 +79,14 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%{!?with_xmms:%patch0 -p1}
-%patch1 -p1
-%patch2 -p1
+%patch0 -p1
+%{!?with_xmms:%patch1 -p1}
+
 %build
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	%{!?with_static_libs:--disable-static}
@@ -105,27 +111,35 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS README doc/html/{*.html,images}
+%doc AUTHORS COPYING.Xiph README doc/html/{*.html,images}
 %lang(ru) %doc doc/html/ru
-%attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_mandir}/man1/*
+%attr(755,root,root) %{_bindir}/flac
+%attr(755,root,root) %{_bindir}/metaflac
+%attr(755,root,root) %{_libdir}/libFLAC.so.*.*.*
+%attr(755,root,root) %{_libdir}/libFLAC++.so.*.*.*
+%{_mandir}/man1/flac.1*
+%{_mandir}/man1/metaflac.1*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.la
-%{_includedir}/*
-%{_aclocaldir}/*
+%attr(755,root,root) %{_libdir}/libFLAC.so
+%attr(755,root,root) %{_libdir}/libFLAC++.so
+%{_libdir}/libFLAC.la
+%{_libdir}/libFLAC++.la
+%{_includedir}/FLAC
+%{_includedir}/FLAC++
+%{_aclocaldir}/libFLAC.m4
+%{_aclocaldir}/libFLAC++.m4
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libFLAC.a
+%{_libdir}/libFLAC++.a
 %endif
 
 %if %{with xmms}
 %files -n xmms-input-flac
 %defattr(644,root,root,755)
-%attr(755,root,root) %{xmms_input_plugindir}/*.so
+%attr(755,root,root) %{xmms_input_plugindir}/libxmms-flac.so
 %endif
