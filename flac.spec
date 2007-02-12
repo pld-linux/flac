@@ -5,7 +5,7 @@
 %bcond_without	xmms		# don't build XMMS plugin
 #
 Summary:	Free Lossless Audio Codec
-Summary(pl.UTF-8):   Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
+Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
 Version:	1.1.3
 Release:	1
@@ -36,7 +36,7 @@ przez Josha Coalsona.
 
 %package devel
 Summary:	FLAC - development files
-Summary(pl.UTF-8):   FLAC - pliki nagłówkowe
+Summary(pl.UTF-8):	FLAC - pliki nagłówkowe
 License:	BSD
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
@@ -52,7 +52,7 @@ Ten pakiet zawiera pliki nagłówkowe bibliotek FLAC.
 
 %package static
 Summary:	FLAC - static libraries
-Summary(pl.UTF-8):   FLAC - biblioteki statyczne
+Summary(pl.UTF-8):	FLAC - biblioteki statyczne
 License:	BSD
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
@@ -65,7 +65,7 @@ Ten pakiet zawiera biblioteki statyczne FLAC.
 
 %package -n xmms-input-flac
 Summary:	Free Lossless Audio Codec - XMMS plugin
-Summary(pl.UTF-8):   Wtyczka FLAC dla XMMS
+Summary(pl.UTF-8):	Wtyczka FLAC dla XMMS
 License:	GPL v2+
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
