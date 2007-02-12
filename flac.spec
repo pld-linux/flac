@@ -5,7 +5,7 @@
 %bcond_without	xmms		# don't build XMMS plugin
 #
 Summary:	Free Lossless Audio Codec
-Summary(pl):	Free Lossless Audio Codec - Wolnodost阷ny bezstratny kodek audio
+Summary(pl.UTF-8):   Free Lossless Audio Codec - Wolnodost臋pny bezstratny kodek audio
 Name:		flac
 Version:	1.1.3
 Release:	1
@@ -30,13 +30,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 FLAC is an Open Source lossless audio codec developed by Josh Coalson.
 
-%description -l pl
-FLAC jest bezstratnym kodekiem audio z otwartymi 紃骴砤mi, rozwijanym
+%description -l pl.UTF-8
+FLAC jest bezstratnym kodekiem audio z otwartymi 藕r贸d艂ami, rozwijanym
 przez Josha Coalsona.
 
 %package devel
 Summary:	FLAC - development files
-Summary(pl):	FLAC - pliki nag丑wkowe
+Summary(pl.UTF-8):   FLAC - pliki nag艂贸wkowe
 License:	BSD
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
@@ -47,12 +47,12 @@ Requires:	libogg-devel >= 2:1.0
 %description devel
 The package contains the development header files for FLAC libraries.
 
-%description devel -l pl
-Ten pakiet zawiera pliki nag丑wkowe bibliotek FLAC.
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nag艂贸wkowe bibliotek FLAC.
 
 %package static
 Summary:	FLAC - static libraries
-Summary(pl):	FLAC - biblioteki statyczne
+Summary(pl.UTF-8):   FLAC - biblioteki statyczne
 License:	BSD
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
@@ -60,12 +60,12 @@ Requires:	%{name}-devel = %{version}-%{release}
 %description static
 The package contains FLAC static libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Ten pakiet zawiera biblioteki statyczne FLAC.
 
 %package -n xmms-input-flac
 Summary:	Free Lossless Audio Codec - XMMS plugin
-Summary(pl):	Wtyczka FLAC dla XMMS
+Summary(pl.UTF-8):   Wtyczka FLAC dla XMMS
 License:	GPL v2+
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
@@ -74,8 +74,8 @@ Requires:	xmms
 %description -n xmms-input-flac
 FLAC input plugin for XMMS.
 
-%description -n xmms-input-flac -l pl
-Wtyczka dla XMMS umo縧iwiaj眂a odtwarzanie plik體 w formacie FLAC.
+%description -n xmms-input-flac -l pl.UTF-8
+Wtyczka dla XMMS umo偶liwiaj膮ca odtwarzanie plik贸w w formacie FLAC.
 
 %prep
 %setup -q
