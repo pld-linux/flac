@@ -7,14 +7,13 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl):	Free Lossless Audio Codec - Wolnodostêpny bezstratny kodek audio
 Name:		flac
-Version:	1.1.3
+Version:	1.1.4
 Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL (programs and plugins)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
-# Source0-md5:	b084603948b60ee338e0c29978cc580c
-Patch0:		%{name}-link.patch
-Patch1:		%{name}-without_xmms.patch
+# Source0-md5:	3958cbd5b6ed8c14966792538e44223b
+Patch0:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1:1.7
@@ -79,8 +78,7 @@ Wtyczka dla XMMS umo¿liwiaj±ca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%patch0 -p1
-%{!?with_xmms:%patch1 -p1}
+%{!?with_xmms:%patch0 -p1}
 
 %build
 %{__libtoolize}
@@ -128,6 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libFLAC++.la
 %{_includedir}/FLAC
 %{_includedir}/FLAC++
+%{_pkgconfigdir}/flac.pc
+%{_pkgconfigdir}/flac++.pc
 %{_aclocaldir}/libFLAC.m4
 %{_aclocaldir}/libFLAC++.m4
 
