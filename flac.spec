@@ -1,4 +1,3 @@
-# TODO: separate c++
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
@@ -7,12 +6,12 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.1.4
+Version:	1.2.0
 Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL (programs and plugins)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
-# Source0-md5:	3958cbd5b6ed8c14966792538e44223b
+# Source0-md5:	ea176bfb291707b46a537b091c226ae7
 Patch0:		%{name}-without_xmms.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
@@ -62,6 +61,43 @@ The package contains FLAC static libraries.
 %description static -l pl.UTF-8
 Ten pakiet zawiera biblioteki statyczne FLAC.
 
+%package c++
+Summary:	FLAC++ - C++ API for FLAC codec
+Summary(pl.UTF-8):	FLAC++ - API C++ do kodeka FLAC
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description c++
+FLAC++ - C++ API for FLAC codec.
+
+%description c++ -l pl.UTF-8
+FLAC++ - API C++ do kodeka FLAC.
+
+%package c++-devel
+Summary:	Header files for FLAC++ library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki FLAC++
+Group:		Development/Libraries
+Requires:	%{name}-c++ = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description c++-devel
+Header files for FLAC++ library.
+
+%description c++-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki FLAC++.
+
+%package c++-static
+Summary:	Static FLAC++ library
+Summary(pl.UTF-8):	Statyczna biblioteka FLAC++
+Group:		Development/Libraries
+Requires:	%{name}-c++-devel = %{version}-%{release}
+
+%description c++-static
+Static FLAC++ library.
+
+%description c++-static -l pl.UTF-8
+Statyczna biblioteka FLAC++.
+
 %package -n xmms-input-flac
 Summary:	Free Lossless Audio Codec - XMMS plugin
 Summary(pl.UTF-8):	Wtyczka FLAC dla XMMS
@@ -107,6 +143,9 @@ rm -rf $RPM_BUILD_ROOT
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
+%post   c++ -p /sbin/ldconfig
+%postun c++ -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING.Xiph README doc/html/{*.html,images}
@@ -114,27 +153,38 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/flac
 %attr(755,root,root) %{_bindir}/metaflac
 %attr(755,root,root) %{_libdir}/libFLAC.so.*.*.*
-%attr(755,root,root) %{_libdir}/libFLAC++.so.*.*.*
 %{_mandir}/man1/flac.1*
 %{_mandir}/man1/metaflac.1*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libFLAC.so
-%attr(755,root,root) %{_libdir}/libFLAC++.so
 %{_libdir}/libFLAC.la
-%{_libdir}/libFLAC++.la
 %{_includedir}/FLAC
-%{_includedir}/FLAC++
 %{_pkgconfigdir}/flac.pc
-%{_pkgconfigdir}/flac++.pc
 %{_aclocaldir}/libFLAC.m4
-%{_aclocaldir}/libFLAC++.m4
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libFLAC.a
+%endif
+
+%files c++
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libFLAC++.so.*.*.*
+
+%files c++-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libFLAC++.so
+%{_libdir}/libFLAC++.la
+%{_includedir}/FLAC++
+%{_pkgconfigdir}/flac++.pc
+%{_aclocaldir}/libFLAC++.m4
+
+%if %{with static_libs}
+%files c++-static
+%defattr(644,root,root,755)
 %{_libdir}/libFLAC++.a
 %endif
 
