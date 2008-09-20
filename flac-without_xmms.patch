@@ -1,7 +1,7 @@
 diff -urN aaa/flac-1.1.3/configure.in flac-1.1.3/configure.in
 --- aaa/flac-1.1.3/configure.in	2006-11-20 22:29:34.000000000 +0100
 +++ flac-1.1.3/configure.in	2006-12-03 21:58:01.413969320 +0100
-@@ -212,10 +212,6 @@
+@@ -225,10 +225,6 @@
  	no)  enable_xmms_plugin=false ;;
  	*) AC_MSG_ERROR(bad value ${enableval} for --enable-xmms-plugin) ;;
  esac],[enable_xmms_plugin=true])
@@ -10,8 +10,8 @@ diff -urN aaa/flac-1.1.3/configure.in flac-1.1.3/configure.in
 -fi
 -AM_CONDITIONAL(FLaC__HAS_XMMS, test -n "$XMMS_INPUT_PLUGIN_DIR")
  
- dnl check for ogg library
- XIPH_PATH_OGG(have_ogg=yes, AC_MSG_WARN([*** Ogg development enviroment not installed - Ogg support will not be built]))
+ dnl build FLAC++ or not
+ AC_ARG_ENABLE([cpplibs],
 diff -urN aaa/flac-1.1.3/src/Makefile.am flac-1.1.3/src/Makefile.am
 --- aaa/flac-1.1.3/src/Makefile.am	2006-10-14 05:35:42.000000000 +0200
 +++ flac-1.1.3/src/Makefile.am	2006-12-03 21:59:27.660857800 +0100
@@ -23,14 +23,6 @@ diff -urN aaa/flac-1.1.3/src/Makefile.am flac-1.1.3/src/Makefile.am
 -XMMS_DIRS = plugin_common plugin_xmms
 -endif
 -
- SUBDIRS = \
- 	libFLAC \
- 	libFLAC++ \
-@@ -26,7 +22,6 @@
- 	flac \
- 	metaflac \
- 	monkeys_audio_utilities \
--	$(XMMS_DIRS) \
- 	plugin_winamp2 \
- 	test_grabbag \
- 	test_libs_common \
+ if FLaC__WITH_CPPLIBS
+ CPPLIBS_DIRS = libFLAC++ test_libFLAC++
+ endif
