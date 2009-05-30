@@ -7,12 +7,14 @@ Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
 Version:	1.2.1
-Release:	1
+Release:	2
 License:	BSD (libFLAC/libFLAC++), GPL (programs and plugins)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
 # Source0-md5:	153c8b15a54da428d1f0fadc756c22c7
 Patch0:		%{name}-without_xmms.patch
+Patch1:		%{name}-lt.patch
+Patch2:		%{name}-gcc44.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1:1.7
@@ -115,10 +117,12 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %prep
 %setup -q
 %{!?with_xmms:%patch0 -p1}
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -134,7 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # no makefiles in doc dirs
-rm -f doc/html/{Makefile*,images/Makefile*,ru/Makefile*}
+rm -f doc/html/{Makefile*,images/Makefile*,images/hw/Makefile*,ru/Makefile*}
 rm -f $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
 
 %clean
@@ -153,6 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/flac
 %attr(755,root,root) %{_bindir}/metaflac
 %attr(755,root,root) %{_libdir}/libFLAC.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libFLAC.so.8
 %{_mandir}/man1/flac.1*
 %{_mandir}/man1/metaflac.1*
 
@@ -173,6 +178,7 @@ rm -rf $RPM_BUILD_ROOT
 %files c++
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libFLAC++.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libFLAC++.so.6
 
 %files c++-devel
 %defattr(644,root,root,755)
