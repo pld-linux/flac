@@ -2,12 +2,12 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 %bcond_without	xmms		# don't build XMMS plugin
-#
+
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
 Version:	1.2.1
-Release:	6
+Release:	7
 License:	BSD (libFLAC/libFLAC++), GPL (programs and plugins)
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
@@ -15,6 +15,7 @@ Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
 Patch0:		%{name}-without_xmms.patch
 Patch1:		%{name}-lt.patch
 Patch2:		%{name}-gcc44.patch
+Patch3:		crbug-111390.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1:1.7
@@ -119,8 +120,9 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %{!?with_xmms:%patch0 -p1}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
-rm m4/ogg.m4
+%{__rm} m4/ogg.m4
 
 %build
 %{__libtoolize}
