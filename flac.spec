@@ -16,6 +16,7 @@ Patch0:		%{name}-without_xmms.patch
 Patch1:		%{name}-lt.patch
 Patch2:		%{name}-gcc44.patch
 Patch3:		crbug-111390.patch
+Patch4:		deb-643377.patch
 URL:		http://flac.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake >= 1:1.7
@@ -121,6 +122,7 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %{__rm} m4/ogg.m4
 
