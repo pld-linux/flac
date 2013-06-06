@@ -6,27 +6,24 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.2.1
-Release:	7
-License:	BSD (libFLAC/libFLAC++), GPL (programs and plugins)
+Version:	1.3.0
+Release:	1
+License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/flac/%{name}-%{version}.tar.gz
-# Source0-md5:	153c8b15a54da428d1f0fadc756c22c7
-Patch0:		%{name}-without_xmms.patch
-Patch1:		%{name}-lt.patch
-Patch2:		%{name}-gcc44.patch
-Patch3:		crbug-111390.patch
-Patch4:		deb-643377.patch
-URL:		http://flac.sourceforge.net/
-BuildRequires:	autoconf
-BuildRequires:	automake >= 1:1.7
+Source0:	http://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
+# Source0-md5:	13b5c214cee8373464d3d65dee362cdd
+URL:		http://xiph.org/flac/
+BuildRequires:	autoconf >= 2.60
+BuildRequires:	automake >= 1:1.11
 # for AM_ICONV
 BuildRequires:	gettext-devel
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:1.4d-3
+BuildRequires:	libtool >= 2:2
 %{?with_xmms:BuildRequires:	rpmbuild(macros) >= 1.125}
+BuildRequires:	tar >= 1:1.22
 %{?with_xmms:BuildRequires:	xmms-devel >= 0.9.5.1}
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -108,7 +105,7 @@ Summary(pl.UTF-8):	Wtyczka FLAC dla XMMS
 License:	GPL v2+
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	xmms
+Requires:	xmms >= 0.9.5.1
 
 %description -n xmms-input-flac
 FLAC input plugin for XMMS.
@@ -118,11 +115,6 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%{!?with_xmms:%patch0 -p1}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %{__rm} m4/ogg.m4
 
@@ -133,7 +125,9 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{!?with_static_libs:--disable-static}
+	--disable-silent-rules \
+	%{?with_static_libs:--enable-static} \
+	%{!?with_xmms:--disable-xmms-plugin}
 
 %{__make}
 
@@ -144,8 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # no makefiles in doc dirs
-rm -f doc/html/{Makefile*,images/Makefile*,images/hw/Makefile*,ru/Makefile*}
-rm -f $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
+%{__rm} doc/html/{Makefile*,images/Makefile*,images/hw/Makefile*,ru/Makefile*}
+%{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
+%if %{with static_libs}
+%{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.a
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
