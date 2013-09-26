@@ -7,7 +7,7 @@ Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
 Version:	1.3.0
-Release:	1
+Release:	2
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	http://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
@@ -131,14 +131,18 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 
 %{__make}
 
+rm -rf doc-html
+cp -a doc/html doc-html
+# no makefiles in doc dirs
+%{__rm} doc-html/{Makefile*,images/Makefile*,images/hw/Makefile*,ru/Makefile*}
+
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# no makefiles in doc dirs
-%{__rm} doc/html/{Makefile*,images/Makefile*,images/hw/Makefile*,ru/Makefile*}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+
 %{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
 %if %{with static_libs}
 %{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.a
@@ -155,8 +159,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING.Xiph README doc/html/{*.html,images}
-%lang(ru) %doc doc/html/ru
+%doc AUTHORS COPYING.Xiph README
 %attr(755,root,root) %{_bindir}/flac
 %attr(755,root,root) %{_bindir}/metaflac
 %attr(755,root,root) %{_libdir}/libFLAC.so.*.*.*
@@ -166,6 +169,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%doc doc-html/{*.html,images}
+%lang(ru) %doc doc-html/ru
 %attr(755,root,root) %{_libdir}/libFLAC.so
 %{_libdir}/libFLAC.la
 %{_includedir}/FLAC
