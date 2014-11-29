@@ -7,11 +7,12 @@ Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
 Version:	1.3.1
-Release:	1
+Release:	2
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	http://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
 # Source0-md5:	b9922c9a0378c88d3e901b234f852698
+Patch0:		%{name}-opt.patch
 URL:		http://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
@@ -40,8 +41,6 @@ License:	BSD
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libogg-devel >= 2:1.0
-# for -c++ only
-#Requires:	libstdc++-devel
 
 %description devel
 The package contains the development header files for FLAC libraries.
@@ -80,6 +79,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki FLAC++
 Group:		Development/Libraries
 Requires:	%{name}-c++ = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
+Requires:	libstdc++-devel
 
 %description c++-devel
 Header files for FLAC++ library.
