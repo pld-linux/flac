@@ -17,7 +17,7 @@ URL:		http://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
 # for AM_ICONV
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2
