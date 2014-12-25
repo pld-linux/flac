@@ -13,6 +13,7 @@ Group:		Libraries
 Source0:	http://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
 # Source0-md5:	b9922c9a0378c88d3e901b234f852698
 Patch0:		%{name}-opt.patch
+Patch1:		x32.patch
 URL:		http://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
@@ -116,6 +117,7 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %{__rm} m4/ogg.m4
 
@@ -144,9 +146,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
+%if %{with xmms}
 %{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
 %if %{with static_libs}
 %{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.a
+%endif
 %endif
 
 %clean
