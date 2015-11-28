@@ -1,5 +1,29 @@
 --- flac-1.3.1/configure.ac~	2014-12-25 12:11:41.000000000 +0000
 +++ flac-1.3.1/configure.ac	2014-12-25 12:28:28.561894846 +0000
+@@ -105,6 +105,14 @@
+ asm_optimisation=no
+ case "$host_cpu" in
+ 	x86_64)
++		case "$host" in
++			*gnux32)
++				cpu_x86_64=true
++				AC_DEFINE(FLAC__CPU_X86_64)
++				AH_TEMPLATE(FLAC__CPU_X86_64, [define if building for x86_64])
++				asm_optimisation=$asm_opt
++				;;
++			*)
+ 		if test $ac_cv_sizeof_voidp = 4 ; then
+ 			# This must be a 32 bit user space running on 64 bit kernel so treat
+ 			# this as ia32.
+@@ -118,6 +126,8 @@
+ 			AH_TEMPLATE(FLAC__CPU_X86_64, [define if building for x86_64])
+ 			fi
+ 		asm_optimisation=$asm_opt
++				;;
++		esac
+ 		;;
+ 	i*86)
+ 		cpu_ia32=true
 @@ -150,6 +150,7 @@
  	*-*-cygwin|*mingw*) OBJ_FORMAT=win32 ;;
  	*-*-darwin*) OBJ_FORMAT=macho ;;
