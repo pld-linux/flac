@@ -2,18 +2,20 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 %bcond_without	xmms		# don't build XMMS plugin
+%bcond_with	sse2		# SSE2 instructions
 
+%ifarch %{x8664} x32 pentium4
+%define	with_sse2	1
+%endif
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.3.1
-Release:	6
+Version:	1.3.2
+Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	http://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
-# Source0-md5:	b9922c9a0378c88d3e901b234f852698
-Patch0:		%{name}-opt.patch
-Patch1:		x32.patch
+# Source0-md5:	454f1bfa3f93cc708098d7890d0499bd
 URL:		http://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
@@ -116,8 +118,6 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %{__rm} m4/ogg.m4
 
@@ -129,6 +129,7 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %{__automake}
 %configure \
 	--disable-silent-rules \
+	%{!?with_sse2:--disable-sse} \
 	%{?with_static_libs:--enable-static} \
 	%{!?with_xmms:--disable-xmms-plugin}
 
