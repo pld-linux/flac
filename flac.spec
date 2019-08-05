@@ -10,13 +10,13 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.3.2
+Version:	1.3.3
 Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
-Source0:	http://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
-# Source0-md5:	454f1bfa3f93cc708098d7890d0499bd
-URL:		http://xiph.org/flac/
+Source0:	https://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
+# Source0-md5:	26703ed2858c1fc9ffc05136d13daa69
+URL:		https://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
 # for AM_ICONV
@@ -145,7 +145,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+# packaged as %doc in -devel
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 %if %{with xmms}
 %{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
