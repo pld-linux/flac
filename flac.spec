@@ -10,15 +10,16 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.3.4
+Version:	1.4.0
 Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	https://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
-# Source0-md5:	bfdb2dd854d334b55a3309e3cd659f2c
+# Source0-md5:	f3c395e936156c3a63add169dec629a5
 URL:		https://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
+BuildRequires:	doxygen
 # for AM_ICONV
 BuildRequires:	gettext-tools
 BuildRequires:	libogg-devel >= 2:1.0
@@ -135,11 +136,6 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 
 %{__make}
 
-rm -rf doc-html
-cp -a doc/html doc-html
-# no makefiles in doc dirs
-find doc-html -name 'Makefile*' | xargs %{__rm}
-
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install \
@@ -166,17 +162,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING.Xiph README
+%doc AUTHORS COPYING.Xiph README.md
 %attr(755,root,root) %{_bindir}/flac
 %attr(755,root,root) %{_bindir}/metaflac
 %attr(755,root,root) %{_libdir}/libFLAC.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libFLAC.so.8
+%attr(755,root,root) %ghost %{_libdir}/libFLAC.so.12
 %{_mandir}/man1/flac.1*
 %{_mandir}/man1/metaflac.1*
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc-html/{*.html,images}
+%doc doc/api/*.{html,png} doc/images/logo*.{gif,svg}
 %attr(755,root,root) %{_libdir}/libFLAC.so
 %{_libdir}/libFLAC.la
 %{_includedir}/FLAC
@@ -192,7 +188,7 @@ rm -rf $RPM_BUILD_ROOT
 %files c++
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libFLAC++.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libFLAC++.so.6
+%attr(755,root,root) %ghost %{_libdir}/libFLAC++.so.10
 
 %files c++-devel
 %defattr(644,root,root,755)
