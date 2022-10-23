@@ -1,21 +1,16 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
-%bcond_without	xmms		# don't build XMMS plugin
-%bcond_with	sse2		# SSE2 instructions
 
-%ifarch %{x8664} x32 pentium4
-%define	with_sse2	1
-%endif
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.4.1
+Version:	1.4.2
 Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	https://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
-# Source0-md5:	835c44ca77c4674b9cdc5b24571306ce
+# Source0-md5:	ca9140f37b286d2571e37d66aae50f92
 URL:		https://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
@@ -25,10 +20,9 @@ BuildRequires:	gettext-tools
 BuildRequires:	libogg-devel >= 2:1.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2
-%{?with_xmms:BuildRequires:	rpmbuild(macros) >= 1.125}
 BuildRequires:	tar >= 1:1.22
-%{?with_xmms:BuildRequires:	xmms-devel >= 0.9.5.1}
 BuildRequires:	xz
+Obsoletes:	xmms-input-flac < 1.4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -103,20 +97,6 @@ Static FLAC++ library.
 %description c++-static -l pl.UTF-8
 Statyczna biblioteka FLAC++.
 
-%package -n xmms-input-flac
-Summary:	Free Lossless Audio Codec - XMMS plugin
-Summary(pl.UTF-8):	Wtyczka FLAC dla XMMS
-License:	GPL v2+
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	xmms >= 0.9.5.1
-
-%description -n xmms-input-flac
-FLAC input plugin for XMMS.
-
-%description -n xmms-input-flac -l pl.UTF-8
-Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
-
 %prep
 %setup -q
 
@@ -130,9 +110,7 @@ Wtyczka dla XMMS umożliwiająca odtwarzanie plików w formacie FLAC.
 %{__automake}
 %configure \
 	--disable-silent-rules \
-	%{!?with_sse2:--disable-sse} \
-	%{?with_static_libs:--enable-static} \
-	%{!?with_xmms:--disable-xmms-plugin}
+	%{?with_static_libs:--enable-static}
 
 %{__make}
 
@@ -143,13 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 
 # packaged as %doc in -devel
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}
-
-%if %{with xmms}
-%{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.la
-%if %{with static_libs}
-%{__rm} $RPM_BUILD_ROOT%{xmms_input_plugindir}/*.a
-%endif
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -202,10 +173,4 @@ rm -rf $RPM_BUILD_ROOT
 %files c++-static
 %defattr(644,root,root,755)
 %{_libdir}/libFLAC++.a
-%endif
-
-%if %{with xmms}
-%files -n xmms-input-flac
-%defattr(644,root,root,755)
-%attr(755,root,root) %{xmms_input_plugindir}/libxmms-flac.so
 %endif
