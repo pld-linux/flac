@@ -1,12 +1,12 @@
 #
 # Conditional build:
-%bcond_without	static_libs	# don't build static library
+%bcond_without	static_libs	# static library
 
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
 Version:	1.4.2
-Release:	1
+Release:	2
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	https://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
@@ -22,7 +22,9 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Obsoletes:	xmms-input-flac < 1.4.2
+# flac 1.4.2 dropped xmms plugin; for now we build plugin in xmms-input-flac.spec from flac 1.4.1 sources.
+# Uncomment this Obsoletes in case xmms-input-flac.spec doesn't build any longer:
+#Obsoletes:	xmms-input-flac < 1.4.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
