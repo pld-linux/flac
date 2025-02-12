@@ -5,12 +5,12 @@
 Summary:	Free Lossless Audio Codec
 Summary(pl.UTF-8):	Free Lossless Audio Codec - Wolnodostępny bezstratny kodek audio
 Name:		flac
-Version:	1.4.3
+Version:	1.5.0
 Release:	1
 License:	BSD (libFLAC/libFLAC++), GPL v2+ (programs and plugins)
 Group:		Libraries
 Source0:	https://downloads.xiph.org/releases/flac/%{name}-%{version}.tar.xz
-# Source0-md5:	7cab20b46e0bc859234bf5ba7da81625
+# Source0-md5:	0bb45bcf74338b00efeec121fff27367
 URL:		https://xiph.org/flac/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake >= 1:1.11
@@ -140,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/flac
 %attr(755,root,root) %{_bindir}/metaflac
 %attr(755,root,root) %{_libdir}/libFLAC.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libFLAC.so.12
+%attr(755,root,root) %ghost %{_libdir}/libFLAC.so.14
 %{_mandir}/man1/flac.1*
 %{_mandir}/man1/metaflac.1*
 
@@ -162,7 +162,7 @@ rm -rf $RPM_BUILD_ROOT
 %files c++
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libFLAC++.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libFLAC++.so.10
+%attr(755,root,root) %ghost %{_libdir}/libFLAC++.so.11
 
 %files c++-devel
 %defattr(644,root,root,755)
